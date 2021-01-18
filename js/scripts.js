@@ -34,26 +34,38 @@ const chumps = [
 const getTeams = async () => {
   const res = await fetch(teamsURL);
   const data = await res.json();
-  console.log({ data });
   return data;
 };
 
-const getParsedTeamsNew = async () => {
-  const res = await getTeams();
-  const teams = [...res.league.conference.east, ...res.league.conference.west];
+const getParsedTeams = async () => {
+  const res = await fetch(teamURLNew);
+  const data = await res.json();
+  const teams = [
+    ...data.league.standard.conference.east,
+    ...data.league.standard.conference.west,
+  ];
+  return teams.reduce((acc, team) => {
+    const name = team.teamSitesOnly.teamNickname;
+    acc[name] = {
+      name,
+      wins: Number(team.win),
+      losses: Number(team.loss),
+      winPercent: Number(team.winPct),
+    };
+    return acc;
+  }, {});
+  return teams;
 };
 
-const getParsedTeams = async () => {
+const getParsedTeamsOld = async () => {
   try {
     const res = await getTeams();
     const teams = res.sports[0].leagues[0].teams;
     const teamsNameToRecord = teams.reduce((acc, team) => {
-      console.log(team);
       const statsValue = createStatsValue(team);
       acc[team.team.name] = { ...statsValue, name: team.team.name };
       return acc;
     }, {});
-    console.log({ teams, teamsNameToRecord });
     return teamsNameToRecord;
   } catch (error) {
     console.error(error);
@@ -158,8 +170,6 @@ const buildTables = async () => {
 };
 
 window.addEventListener('load', (event) => {
-  fetch(teamURLNew)
-    .then((r) => r.json())
-    .then((d) => console.log({ d }));
+  // getParsedTeamsNew();
   buildTables();
 });
