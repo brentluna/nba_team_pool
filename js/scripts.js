@@ -102,10 +102,10 @@ const buildChumpTable = (chump) => {
   const rows = chump.teams.map((team) => {
     return `
       <tr>
-        <td>${team.name}</td>
-        <td>${team.winPercent.toFixed(3)}</td>
-        <td>${team.wins}</td>
-        <td>${team.losses}</td>
+        <td class="name">${team.name}</td>
+        <td class="stats">${team.winPercent.toFixed(3)}</td>
+        <td class="stats">${team.wins}</td>
+        <td class="stats">${team.losses}</td>
       </tr>
     `;
   });
