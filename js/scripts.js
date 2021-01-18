@@ -1,5 +1,6 @@
-const teamsURL = `http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams`;
+// const teamsURL = `http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams`;
 
+const teamsURL = 'https://boxscores.vercel.app/api/teams';
 const chumps = [
   {
     name: 'Brent',
