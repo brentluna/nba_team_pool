@@ -138,7 +138,7 @@ const buildTotals = (chumps) => {
       <table>
         <thead>
           <tr>
-            <th>Team</th>
+            <th>Chump</th>
             <th>Win %</th>
             <th>Wins</th>
             <th>Losses</th>
