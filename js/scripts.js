@@ -117,6 +117,41 @@ const getChumpsTotals = (chump) => {
   return { totalWins, totalLosses, overallWinPercent };
 };
 
+const buildTotals = (chumps) => {
+  const rows = chumps.map((chump) => {
+    const { totalWins, totalLosses, overallWinPercent } = getChumpsTotals(
+      chump
+    );
+    return `
+      <tr>
+        <td class="name">${chump.name}</td>
+        <td class="stats">${overallWinPercent.toFixed(3)}</td>
+        <td class="stats">${totalWins}</td>
+        <td class="stats">${totalLosses}</td>
+      </tr>
+    `;
+  });
+
+  return `
+    <li>
+      <h3>Overall</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Win %</th>
+            <th>Wins</th>
+            <th>Losses</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.join('')}
+        </tbody>
+      </table>
+    </li>
+  `;
+};
+
 const buildChumpTable = (chump) => {
   const { totalWins, totalLosses, overallWinPercent } = getChumpsTotals(chump);
   const rows = chump.teams.map((team) => {
@@ -159,6 +194,7 @@ const buildChumpTable = (chump) => {
 
 const buildTables = async () => {
   const chumpsWithData = await mapStatsToChumps();
+  const totals = buildTotals(chumpsWithData);
   const content = chumpsWithData
     .map((chump) => {
       const chumpTable = buildChumpTable(chump);
@@ -166,7 +202,7 @@ const buildTables = async () => {
     })
     .join('');
   const ul = document.getElementById('tables');
-  ul.innerHTML = content;
+  ul.innerHTML = totals + content;
 };
 
 window.addEventListener('load', (event) => {
