@@ -15,7 +15,7 @@ const chumps = [
   },
   {
     name: 'Raf',
-    teams: ['Lakers', 'Mavericks', 'Blazers', 'Bulls', 'Cavaliers'],
+    teams: ['Lakers', 'Mavericks', 'Trail Blazers', 'Bulls', 'Cavaliers'],
   },
   {
     name: 'Sean',
